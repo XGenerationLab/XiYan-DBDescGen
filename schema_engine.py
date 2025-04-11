@@ -164,6 +164,8 @@ class SchemaEngine(SQLDatabase):
                 return f'"{self._schema}"."{table_name}"'
             else:
                 return f'"{table_name}"'
+        elif self._dialect == self._type_engine.sqlserver_dialect:
+            return f'[{table_name}]'
         else:
             raise NotImplementedError
 
@@ -312,13 +314,15 @@ class SchemaEngine(SQLDatabase):
             snip = '{}'.format(self.get_protected_field_name(field_name))
         elif self._dialect == self._type_engine.sqlite_dialect:
             snip = "CAST({} AS TEXT)".format(self.get_protected_field_name(field_name))
+        elif self._dialect == self._type_engine.sqlserver_dialect:
+            snip = 'CAST({} AS NVARCHAR(MAX))'.format(self.get_protected_field_name(field_name))
         else:
             raise NotImplementedError
 
         self.check_agg_func(agg_func)
-        if self._dialect == self._type_engine.sqlite_dialect:
-            sql = 'select {}(length({})) from {} where {} is not null;'.format(agg_func, snip,
-                self.get_protected_table_name(table_name),self.get_protected_field_name(field_name))
+        if self._dialect == self._type_engine.sqlserver_dialect:
+            sql = 'select {}(LEN({})) from {} where {} is not null;'.format(agg_func, snip,
+                self.get_protected_table_name(table_name), self.get_protected_field_name(field_name))
         else:
             sql = 'select {}(char_length({})) from {} where {} is not null;'.format(agg_func, snip,
                 self.get_protected_table_name(table_name), self.get_protected_field_name(field_name))
