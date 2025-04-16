@@ -4,7 +4,7 @@ class TypeEngine:
 
     @property
     def supported_dialects(self):
-        return [self.mysql_dialect, self.postgres_dialect, self.sqlite_dialect]
+        return [self.mysql_dialect, self.postgres_dialect, self.sqlite_dialect, self.sqlserver_dialect]
 
     @property
     def mysql_dialect(self):
@@ -17,6 +17,10 @@ class TypeEngine:
     @property
     def sqlite_dialect(self):
         return 'sqlite'
+        
+    @property
+    def sqlserver_dialect(self):
+        return 'mssql'
 
     def field_type_abbr(self, field_type: str):
         """字段类型缩写，用于在MSchema中展示"""
