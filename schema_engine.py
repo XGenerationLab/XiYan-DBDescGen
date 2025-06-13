@@ -320,7 +320,10 @@ class SchemaEngine(SQLDatabase):
             raise NotImplementedError
 
         self.check_agg_func(agg_func)
-        if self._dialect == self._type_engine.sqlserver_dialect:
+        if self._dialect == self._type_engine.sqlite_dialect:
+            sql = 'select {}(length({})) from {} where {} is not null;'.format(agg_func, snip,
+                self.get_protected_table_name(table_name),self.get_protected_field_name(field_name))
+        elif self._dialect == self._type_engine.sqlserver_dialect:
             sql = 'select {}(LEN({})) from {} where {} is not null;'.format(agg_func, snip,
                 self.get_protected_table_name(table_name), self.get_protected_field_name(field_name))
         else:
