@@ -61,6 +61,20 @@ mschema_str = mschema.to_mschema()
 print(mschema_str)
 ```
 
+## Contact us:
+
+If you are interested in our research or products, please feel free to contact us.
+
+#### Contact Information:
+
+Yifu Liu, zhencang.lyf@alibaba-inc.com
+
+#### Join Our DingTalk Group
+
+<a href="https://github.com/XGenerationLab/XiYan-SQL/blob/main/xiyansql_dingding.png">Ding Group钉钉群</a> 
+
+
+
 ## Citation
 If you find our work helpful, feel free to give us a cite.
 
@@ -94,3 +108,4 @@ If you find our work helpful, feel free to give us a cite.
       primaryClass={cs.AI}
 }
 ```
+
